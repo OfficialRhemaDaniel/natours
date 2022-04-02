@@ -1,43 +1,15 @@
 const express = require('express');
 
-const getAllUsers = (req, res) => {
-  res.status('500').json({
-    status: 'error',
-    message: 'the route never too gel',
-  });
-};
-
-const getUser = (req, res) => {
-  res.status('500').json({
-    status: 'error',
-    message: 'the route never too gel',
-  });
-};
-
-const createUser = (req, res) => {
-  res.status('500').json({
-    status: 'error',
-    message: 'the route never too gel',
-  });
-};
-
-const updateUser = (req, res) => {
-  res.status('500').json({
-    status: 'error',
-    message: 'the route never too gel',
-  });
-};
-
-const deleteUser = (req, res) => {
-  res.status('500').json({
-    status: 'error',
-    message: 'the route never too gel',
-  });
-};
-
 const router = express.Router();
-
-router.route('/').get(getAllUsers).post(createUser);
-router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+const userController = require('./../controllers/userController');
+router
+  .route('/')
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
 
 module.exports = router;
