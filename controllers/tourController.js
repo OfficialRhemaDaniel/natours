@@ -8,7 +8,7 @@ exports.checkID = (req, res, next, val) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
-      message: 'The ID no too pure',
+      message: 'The ID no too pure oh',
     });
   }
   next();
