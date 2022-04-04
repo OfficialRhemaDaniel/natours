@@ -4,13 +4,16 @@
   "description": "Learning Node.JS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start:prod": "set NODE_ENV=production && nodemon server.js"
   },
-  "author": "Collins Thomas",
+  "author": "Rhema Daniel",
   "license": "ISC",
   "keywords": [],
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   }
 }
