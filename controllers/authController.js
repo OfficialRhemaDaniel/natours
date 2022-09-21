@@ -16,6 +16,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    passwordChangedAt: req.body.passwordChangedAt,
+    role: req.body.role,
   });
   const token = signToken(newUser._id);
 
@@ -76,6 +78,22 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //4) check if user changed password after JWT was issued.
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently changed password! Please log in again.', 401)
+    );
+  }
 
+  //GRANT ACCESS TO PROTECTED ROUTE
+  req.user = freshUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.body.role)) {
+      return next(new AppError('You are not permitted to access this', 403)); //forbidden
+    }
+    next();
+  };
+};
